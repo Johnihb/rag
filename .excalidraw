@@ -1852,9 +1852,9 @@
     {
       "id": "bxsVFZ6kciAG4SMq_BcTh",
       "type": "text",
-      "x": -154.37775337207125,
-      "y": 1589.014145827567,
-      "width": 182.6997833251953,
+      "x": -182.78141438744285,
+      "y": 1586.5379294795139,
+      "width": 246.87969970703125,
       "height": 27,
       "angle": 0,
       "strokeColor": "#1e1e1e",
@@ -1869,20 +1869,20 @@
       "index": "aj",
       "roundness": null,
       "seed": 285102052,
-      "version": 56,
-      "versionNonce": 548812644,
+      "version": 81,
+      "versionNonce": 1684519525,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1782201648684,
+      "updated": 1782558486187,
       "link": null,
       "locked": false,
-      "text": "images,audio , video",
+      "text": "can be images,audio , video",
       "fontSize": 20,
       "fontFamily": 6,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "images,audio , video",
+      "originalText": "can be images,audio , video",
       "autoResize": true,
       "lineHeight": 1.35
     },
@@ -2676,8 +2676,8 @@
     {
       "id": "g-g_8TtBgCZ9CAi4834Ua",
       "type": "text",
-      "x": 1385.1498959859214,
-      "y": 854.3666557312013,
+      "x": 1263.1715530421784,
+      "y": 831.4973451699152,
       "width": 451.81964111328125,
       "height": 25,
       "angle": 0,
@@ -2693,11 +2693,11 @@
       "index": "b04",
       "roundness": null,
       "seed": 780584653,
-      "version": 218,
-      "versionNonce": 432303309,
+      "version": 286,
+      "versionNonce": 263203659,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1782207877939,
+      "updated": 1782558526867,
       "link": null,
       "locked": false,
       "text": "measures angles to find the nearest neighbour",
@@ -22555,6 +22555,98 @@
       "originalText": "data ingesting/indexing phase",
       "autoResize": true,
       "lineHeight": 1.25
+    },
+    {
+      "id": "kSBtkHKHDh3p4SrbnIV_B",
+      "type": "freedraw",
+      "x": -84.92829083317298,
+      "y": 1465.7964700740836,
+      "width": 79.79737038696442,
+      "height": 1.0924459677210052,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "b2P",
+      "roundness": null,
+      "seed": 1206121131,
+      "version": 15,
+      "versionNonce": 288160037,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1782558478157,
+      "link": null,
+      "locked": false,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          2.6299704418296415,
+          0.056643212296648926
+        ],
+        [
+          6.773164999869522,
+          0.056643212296648926
+        ],
+        [
+          11.952187008819323,
+          0.056643212296648926
+        ],
+        [
+          20.238658443184647,
+          0.056643212296648926
+        ],
+        [
+          29.042944821062235,
+          0.056643212296648926
+        ],
+        [
+          39.40098883896178,
+          0.056643212296648926
+        ],
+        [
+          48.205324607810724,
+          0.056643212296648926
+        ],
+        [
+          57.00966037665967,
+          0.056643212296648926
+        ],
+        [
+          65.81399614550861,
+          1.0924459677210052
+        ],
+        [
+          73.06462366530684,
+          1.0924459677210052
+        ],
+        [
+          76.68992096154892,
+          1.0924459677210052
+        ],
+        [
+          79.79737038696442,
+          1.0924459677210052
+        ],
+        [
+          79.79737038696442,
+          1.0924459677210052
+        ]
+      ],
+      "pressures": [],
+      "simulatePressure": true,
+      "lastCommittedPoint": [
+        79.79737038696442,
+        1.0924459677210052
+      ]
     }
   ],
   "appState": {

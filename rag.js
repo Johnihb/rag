@@ -13,3 +13,8 @@
  * 3:Pass input + relevent information to LLM
  * 4:output
 */
+
+import { indexTheDocument } from "./prepare.js";
+
+const filePath = "./test.pdf";
+indexTheDocument(filePath);
