@@ -157,6 +157,51 @@ npm run chat
 
 Type your questions and press `Enter`. Type `exit` or `/bye` to quit.
 
+### 7. Or use the web UI
+
+```bash
+npm run ui
+```
+
+Open `http://localhost:3000`. Same RAG pipeline, served as a chat interface on an
+Express server (`server.js`), with a plain HTML/CSS/JS front end in `public/`
+(no framework, no build step). Conversation history is kept, so follow-up
+questions work. Set `PORT` in `.env` to change the port.
+
+### 8. Sign in
+
+The UI has two roles. Sign in with either set of static credentials:
+
+| Role     | Username | Password | Can do                    |
+|----------|----------|----------|---------------------------|
+| `admin`  | `admin`  | `admin`  | Chat **and** upload PDFs   |
+| `user`   | `user`   | `user`   | Chat only                  |
+
+Admins see a **Documents** panel above the chat with a file picker. Choosing a
+PDF uploads it to `./uploads`, and the server chunks and embeds it into Pinecone
+before replying. One request, no polling — the browser waits, which for a large
+file can take tens of seconds.
+
+> ⚠️ These credentials are hardcoded in `auth.js` and sessions live in memory.
+> That is fine for a local tool and **not** safe on a shared host or the public
+> internet. See the warning at the top of `auth.js` for what to change first.
+
+### API
+
+| Method | Route              | Auth  | Body / Notes                                    | Response            |
+|--------|--------------------|-------|-------------------------------------------------|---------------------|
+| `POST` | `/api/login`       | –     | `{ username, password }`                        | `{ user }`          |
+| `POST` | `/api/logout`      | –     | –                                               | `{ ok: true }`      |
+| `GET`  | `/api/me`          | –     | –                                               | `{ user \| null }`  |
+| `POST` | `/api/chat`        | any   | `{ question, history? }`                        | `{ answer }`        |
+| `POST` | `/api/uploads`     | admin | Raw `application/pdf` body, `?filename=`        | `{ filename }`      |
+| `GET`  | `/api/health`      | –     | –                                               | `{ status: "ok" }`  |
+
+Upload rules: 20mb maximum, PDF magic bytes checked, filenames sanitised, and
+re-uploading the same name overwrites the previous file. A PDF with no
+extractable text (a scan with no OCR layer) is rejected with a readable message
+rather than an internal error.
+
 ---
 
 ## 🔐 Environment Variables
@@ -197,6 +242,11 @@ The assistant is instructed to **only answer from the provided document context*
 rag/
 ├── prepare.js        # Stage 1: Load, chunk, embed, and store PDF in Pinecone
 ├── chat.js           # Stage 2: Query loop — retrieve context and call Gemini LLM
+├── server.js         # Express server — routes, static UI, auth wiring
+├── auth.js           # Static credentials, in-memory sessions, role guards
+├── uploads.js        # Admin-only PDF upload and background indexing
+├── public/           # Chat UI (index.html, styles.css, app.js, markdown.js)
+├── uploads/          # PDFs uploaded by admins (gitignored)
 ├── rag.js            # Entry point — triggers the indexing pipeline
 ├── test.pdf          # Sample PDF document (replace with your own)
 ├── package.json      # Project metadata and dependencies

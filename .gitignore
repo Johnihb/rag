@@ -1,2 +1,9 @@
 .env
 node_modules
+.kombai
+
+_work
+*.docx
+
+# PDFs uploaded through the admin panel
+uploads/

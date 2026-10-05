@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Company Assistant</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <!-- Layered forest + mountain landscape, pure CSS/SVG, no external assets -->
+    <div class="scene" aria-hidden="true">
+      <svg class="scene__sky" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
+        <defs>
+          <linearGradient id="skyFade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ffffff" />
+            <stop offset="100%" stop-color="#e8e8e8" />
+          </linearGradient>
+        </defs>
+        <rect width="1600" height="900" fill="url(#skyFade)" />
+        <circle cx="1250" cy="180" r="90" fill="#ffffff" stroke="#111111" stroke-width="3" />
+      </svg>
+
+      <!-- Far mountain range -->
+      <svg class="scene__mountains scene__mountains--far" viewBox="0 0 1600 500" preserveAspectRatio="none">
+        <path
+          d="M0 500 L180 250 L300 340 L470 130 L640 330 L790 220 L980 400 L1150 240 L1330 360 L1480 200 L1600 320 L1600 500 Z"
+          fill="#dcdcdc"
+          stroke="#111111"
+          stroke-width="3"
+          stroke-linejoin="round"
+        />
+        <path d="M470 130 L520 205 L470 235 L420 205 Z" fill="#ffffff" stroke="#111111" stroke-width="3" stroke-linejoin="round" />
+        <path d="M1480 200 L1515 255 L1480 278 L1445 255 Z" fill="#ffffff" stroke="#111111" stroke-width="3" stroke-linejoin="round" />
+      </svg>
+
+      <!-- Near mountain range -->
+      <svg class="scene__mountains scene__mountains--near" viewBox="0 0 1600 420" preserveAspectRatio="none">
+        <path
+          d="M0 420 L150 300 L320 380 L520 210 L700 360 L880 260 L1080 390 L1280 280 L1460 380 L1600 300 L1600 420 Z"
+          fill="#bfbfbf"
+          stroke="#111111"
+          stroke-width="3"
+          stroke-linejoin="round"
+        />
+        <path d="M520 210 L565 275 L520 302 L475 275 Z" fill="#ffffff" stroke="#111111" stroke-width="3" stroke-linejoin="round" />
+      </svg>
+
+      <!-- Pine forest silhouette -->
+      <svg class="scene__forest" viewBox="0 0 1600 260" preserveAspectRatio="none">
+        <path
+          d="M0 260 L40 180 L80 260 L130 160 L180 260 L240 190 L300 260 L360 150 L420 260 L480 200 L540 260 L600 165 L660 260 L720 195 L780 260 L840 155 L900 260 L960 205 L1020 260 L1080 170 L1140 260 L1200 190 L1260 260 L1320 160 L1380 260 L1440 200 L1500 260 L1560 175 L1600 260 Z"
+          fill="#2a2a2a"
+        />
+        <path d="M0 260 L1600 260 L1600 210 L0 210 Z" fill="#1a1a1a" />
+      </svg>
+    </div>
+
+    <!-- ================= Sign in ================= -->
+    <main id="loginView" class="shell shell--narrow" hidden>
+      <header class="header">
+        <div class="header__text">
+          <h1 class="header__title">Sign in</h1>
+          <p class="header__subtitle">Company Assistant</p>
+        </div>
+      </header>
+
+      <form id="loginForm" class="auth">
+        <div class="field">
+          <label class="field__label" for="username">Username</label>
+          <input
+            id="username"
+            class="field__input"
+            type="text"
+            name="username"
+            autocomplete="username"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="password">Password</label>
+          <input
+            id="password"
+            class="field__input"
+            type="password"
+            name="password"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+
+        <p id="loginError" class="auth__error" role="alert" hidden></p>
+
+        <button id="loginBtn" class="btn btn--solid btn--block" type="submit">Sign in</button>
+
+        <p class="auth__hint">
+          <strong>admin</strong> / <strong>admin</strong> can upload documents.<br />
+          <strong>user</strong> / <strong>user</strong> can chat only.
+        </p>
+      </form>
+    </main>
+
+    <!-- ================= Chat ================= -->
+    <main id="appView" class="shell" hidden>
+      <header class="header">
+        <!-- Grouped so the flex header treats them as one block on the left
+             rather than two items side by side. -->
+        <div class="header__text">
+          <h1 class="header__title">Company Assistant</h1>
+          <p class="header__subtitle">Grounded answers from company records</p>
+        </div>
+
+        <div class="header__actions">
+          <span id="userBadge" class="badge"></span>
+          <button id="clearBtn" class="btn btn--ghost" type="button">Clear</button>
+          <button id="logoutBtn" class="btn btn--ghost" type="button">Sign out</button>
+        </div>
+      </header>
+
+      <!-- Admin-only document upload -->
+      <section id="adminPanel" class="admin" hidden>
+        <h2 class="admin__title">Documents</h2>
+        <form id="uploadForm" class="admin__form">
+          <label class="visually-hidden" for="pdfInput">Choose a PDF</label>
+          <input id="pdfInput" class="admin__file" type="file" accept="application/pdf,.pdf" />
+          <button id="uploadBtn" class="btn btn--solid" type="submit">Upload &amp; index</button>
+        </form>
+        <p id="uploadStatus" class="admin__status" role="status" hidden></p>
+      </section>
+
+      <section id="chatLog" class="chat" aria-live="polite" aria-label="Conversation"></section>
+
+      <footer class="composer">
+        <form id="chatForm" class="composer__form">
+          <label class="visually-hidden" for="messageInput">Your message</label>
+          <input
+            id="messageInput"
+            class="composer__input"
+            type="text"
+            name="message"
+            placeholder="Type your question and press Enter"
+            autocomplete="off"
+            maxlength="1000"
+            required
+          />
+          <button id="sendBtn" class="btn btn--solid" type="submit">Send</button>
+        </form>
+        <p class="composer__hint">Press Enter to send</p>
+      </footer>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

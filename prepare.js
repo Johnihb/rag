@@ -1,5 +1,4 @@
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
-import { OpenAIEmbeddings } from "@langchain/openai";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import { PineconeStore } from "@langchain/pinecone";
 import { Pinecone as PineconeClient } from "@pinecone-database/pinecone";
@@ -27,7 +26,16 @@ export async function indexTheDocument(filePath) {
   //*step 1:laoding the documents
   const loader = new PDFLoader(filePath, { splitPages: false });
   const document = await loader.load(); //each page is assigned to a document key
-  // console.log(document[0].pageContent);
+
+  // A PDF can load successfully yet contain no extractable text, for example a
+  // scan with no OCR layer. splitPages:false collapses the file into a single
+  // Document, so document[0] is undefined in that case and the chunker below
+  // would throw on pageContent. Fail with a message an admin can act on.
+  if (!document?.length || !document[0]?.pageContent?.trim()) {
+    throw new Error(
+      "No readable text found in that PDF. If it is a scan, it needs OCR before it can be indexed."
+    );
+  }
 
   //*step 2:Chunking
   const textSplitter = new RecursiveCharacterTextSplitter({

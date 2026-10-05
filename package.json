@@ -5,7 +5,9 @@
   "main": "rag.js",
   "scripts": {
     "dev": "node --watch rag.js",
-    "chat":"node chat.js",
+    "chat": "node chat.js",
+    "ui": "node server.js",
+    "ui:watch": "node --watch server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
@@ -21,6 +23,7 @@
     "@langchain/pinecone": "^1.0.3",
     "@langchain/textsplitters": "^1.0.1",
     "@pinecone-database/pinecone": "^5.1.2",
+    "express": "^5.2.1",
     "pdf-parse": "^2.4.5"
   }
 }
